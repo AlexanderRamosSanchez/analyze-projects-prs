@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: Build and analyze
+    name: Build, Analyze and Dockerize
     runs-on: ubuntu-latest
 
     env:
@@ -20,7 +20,6 @@ jobs:
       KAFKA_BOOTSTRAP_SERVERS: ${{ secrets.KAFKA_BOOTSTRAP_SERVERS }}
       KAFKA_USERNAME: ${{ secrets.KAFKA_USERNAME }}
       KAFKA_PASSWORD: ${{ secrets.KAFKA_PASSWORD }}
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Token para SonarCloud
 
     steps:
       - uses: actions/checkout@v4
@@ -48,7 +47,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Necesario para obtener información de PR
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=AlexanderRamosSanchez_analyze-projects-prs
-
-      - name: Build with Maven
-        run: mvn clean install -DskipTests
