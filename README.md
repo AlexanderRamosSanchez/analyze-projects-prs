@@ -1,1 +1,1 @@
-# vg-ms-prs
+# vg-ms-prs | proyecto de responsabilidad social
