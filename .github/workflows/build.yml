@@ -2,9 +2,10 @@ name: SonarQube
 on:
   push:
     branches:
-      - main
+      - vg-ms-familys
   pull_request:
-    types: [opened, synchronize, reopened]
+    branches:
+      - vg-ms-familys
 jobs:
   build:
     name: Build and analyze
